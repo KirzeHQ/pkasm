@@ -1,6 +1,11 @@
-[package]
-name = "pkasm"
-version = "0.1.0"
-edition = "2024"
+[workspace]
+resolver = "3"
+members = [
+  "pkasm",
+  "assembler",
+  "package-manager",
+  "website"
+]
 
-[dependencies]
+[workspace.lints.clippy]
+unwrap_used = "deny"
