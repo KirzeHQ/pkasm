@@ -16,6 +16,11 @@ struct Cli {
 
 #[derive(Debug, Subcommand)]
 enum Command {
+    /// Initialize a new PkASM project.
+    Init {
+        /// Directory in which to create the project.
+        path: Option<PathBuf>,
+    },
     /// Assemble an assembly source file.
     Assemble(FileCommand),
     /// Disassemble a program or binary file.
@@ -58,6 +63,8 @@ fn main() {
     let cli = Cli::parse();
 
     let result = match cli.command {
+        Command::Init { path } => tooling::init(path.unwrap_or_else(|| PathBuf::from(".")))
+            .map_err(|error| format!("could not initialize project: {error}")),
         Command::Assemble(command) => unavailable("assemble", command.input.display().to_string()),
         Command::Disassemble(command) => {
             unavailable("disassemble", command.input.display().to_string())

@@ -131,6 +131,7 @@ dependencies = [
  "assembler",
  "clap",
  "package-manager",
+ "tooling",
 ]
 
 [[package]]
@@ -167,6 +168,10 @@ dependencies = [
  "quote",
  "unicode-ident",
 ]
+
+[[package]]
+name = "tooling"
+version = "0.1.0"
 
 [[package]]
 name = "unicode-ident"
