@@ -45,11 +45,6 @@ struct FileCommand {
 
 #[derive(Debug, Subcommand)]
 enum PackageCommand {
-    /// Create a new PkASM package.
-    Init {
-        /// Directory in which to create the package.
-        path: Option<PathBuf>,
-    },
     /// Install a package.
     Install {
         /// Package to install.
@@ -71,10 +66,6 @@ fn main() {
         }
         Command::Emulate(command) => unavailable("emulate", command.input.display().to_string()),
         Command::Package { command } => match command {
-            PackageCommand::Init { path } => unavailable(
-                "package init",
-                path.map_or_else(|| ".".to_owned(), |path| path.display().to_string()),
-            ),
             PackageCommand::Install { package } => unavailable("package install", package),
             PackageCommand::List => Err("package list is not implemented yet".to_owned()),
         },
