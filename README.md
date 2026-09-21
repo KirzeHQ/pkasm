@@ -6,6 +6,11 @@ PkASM is a rust and assembly based cli. It focuses on tooling for Assembly progr
 Designed to be lightweight and fast, while being easy to use.  
 It is a work in progress and is not yet complete.
 
+> [!IMPORTANT]
+> This is a work in progress and is not yet complete.  
+> I work on this in my free time but not as a primary focus.  
+> Any contributions are welcome and appreciated.
+
 ## Features (Also kind of Roadmap)
 
 - [ ] Package Manager
