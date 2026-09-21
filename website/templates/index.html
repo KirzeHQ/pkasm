@@ -1,0 +1,54 @@
+{% include "header.html" %}
+        <section class="hero">
+            <h1>Packages for PkASM projects.</h1>
+            <p class="hero-copy">Search published libraries, tools, and assembly packages.</p>
+            <form class="search-form" action="/search" method="get">
+                <label class="sr-only" for="query">Search packages</label>
+                <input id="query" name="q" value="{{ query }}" placeholder="Search by package name...">
+                <button type="submit">Search</button>
+            </form>
+        </section>
+
+        <section class="content-section">
+            <div class="section-heading">
+                {% if query.is_empty() %}
+                <div>
+                    <h2>Published packages</h2>
+                </div>
+                {% else %}
+                <div>
+                    <p class="eyebrow">SEARCH RESULTS</p>
+                    <h2>Matches for &quot;{{ query }}&quot;</h2>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if packages.is_empty() %}
+            <div class="empty-state">
+                <span class="empty-icon">/</span>
+                <h3>No packages found</h3>
+                <p>There are no packages matching this query.</p>
+            </div>
+            {% else %}
+            <ul class="package-grid">
+                {% for package in packages %}
+                <li class="package-card">
+                    <div class="card-topline">
+                        <span class="package-type">{{ package.package_type }}</span>
+                        <span class="version">v{{ package.id.version }}</span>
+                    </div>
+                    <h3>
+                        <a href="/packages/{{ package.id.name }}/{{ package.id.version }}">
+                            {{ package.id.name }}
+                        </a>
+                    </h3>
+                    <p>{{ package.dependencies.len() }} dependencies</p>
+                    <a class="text-link" href="/packages/{{ package.id.name }}/{{ package.id.version }}">
+                        View package <span>&rarr;</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </section>
+{% include "footer.html" %}

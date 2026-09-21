@@ -1,0 +1,64 @@
+{% include "header.html" %}
+        <section class="dashboard-heading">
+            <div>
+                <p class="eyebrow">ACCOUNT DASHBOARD</p>
+                <h1>{{ username }}</h1>
+                <p class="muted">Manage API keys used by the PkASM CLI.</p>
+            </div>
+            <a class="button button-quiet" href="/logout">Log out</a>
+        </section>
+
+        {% if !message.is_empty() %}
+        <p class="notice">{{ message }}</p>
+        {% endif %}
+        {% match new_key %}
+        {% when Some with (key) %}
+        <div class="key-overlay">
+            <section class="key-card" aria-labelledby="new-key-title">
+                <a class="key-dismiss" href="/dashboard" aria-label="Close API key">&times;</a>
+                <p class="eyebrow">NEW API KEY</p>
+                <h2 id="new-key-title">Save this key now</h2>
+                <p class="muted">This is the only time the full key will be shown.</p>
+                <code>{{ key.key }}</code>
+                <p class="key-name">{{ key.name }}</p>
+            </section>
+        </div>
+        {% when None %}{% endmatch %}
+
+        <div class="dashboard-grid">
+            <section class="panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">CREDENTIALS</p>
+                        <h2>API keys</h2>
+                    </div>
+                    <span class="count">{{ api_keys.len() }}</span>
+                </div>
+                {% if api_keys.is_empty() %}
+                <p class="muted">No API keys have been created.</p>
+                {% else %}
+                <ul class="key-list">
+                    {% for key in api_keys %}
+                    <li>
+                        <span class="key-dot"></span>
+                        <span>{{ key.name }}</span>
+                        <span class="key-status">active</span>
+                        <form action="/dashboard/api-keys/{{ key.id }}/delete" method="post">
+                            <button class="delete-button" type="submit">Delete</button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </section>
+            <section class="panel">
+                <p class="eyebrow">NEW CREDENTIAL</p>
+                <h2>Create an API key</h2>
+                <form action="/dashboard/api-keys" method="post">
+                    <label for="name">Key name</label>
+                    <input id="name" name="name" placeholder="CLI laptop" required>
+                    <button type="submit">Create API key</button>
+                </form>
+            </section>
+        </div>
+{% include "footer.html" %}

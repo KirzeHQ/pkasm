@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }} | PkASM</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="/">
+                <span>PkASM <small>PROJECT</small></span>
+            </a>
+            <nav>
+                {% if logged_in %}
+                <a href="/dashboard">Dashboard</a>
+                {% else %}
+                <a href="/login">Log in</a>
+                <a class="nav-cta" href="/register">Create account</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    <main>

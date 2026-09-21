@@ -1,0 +1,20 @@
+{% include "header.html" %}
+        <div class="auth-layout">
+            <section class="auth-intro">
+                <h1>Access the package registry.</h1>
+            </section>
+            <section class="panel auth-panel">
+                <h2>{{ action_label }}</h2>
+                {% if !message.is_empty() %}
+                <p class="notice">{{ message }}</p>
+                {% endif %}
+                <form action="/{{ action }}" method="post">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" autocomplete="username" required>
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required>
+                    <button type="submit">{{ action_label }}</button>
+                </form>
+            </section>
+        </div>
+{% include "footer.html" %}

@@ -1,0 +1,52 @@
+{% include "header.html" %}
+        <p class="breadcrumb">
+            <a href="/">Registry</a>
+            <span>/</span>
+            {{ package.id.name }}
+        </p>
+        <section class="package-hero">
+            <div>
+                <p class="eyebrow">PACKAGE</p>
+                <h1>{{ package.id.name }}</h1>
+                <p class="package-version">
+                    Version {{ package.id.version }}
+                    <span class="status-pill">{{ package.package_type }}</span>
+                </p>
+            </div>
+            <a
+                class="button"
+                href="/packages/{{ package.id.name }}/{{ package.id.version }}/download"
+            >
+                Download archive
+            </a>
+        </section>
+
+        <div class="detail-grid">
+            <section class="panel">
+                <p class="eyebrow">ABOUT THIS PACKAGE</p>
+                <dl class="details">
+                    <dt>Owner</dt>
+                    <dd>{{ package.owner }}</dd>
+                    <dt>License</dt>
+                    <dd>{{ package.license.as_deref().unwrap_or("Not specified") }}</dd>
+                    <dt>Author</dt>
+                    <dd>{{ package.author.as_deref().unwrap_or("Not specified") }}</dd>
+                </dl>
+            </section>
+            <section class="panel">
+                <p class="eyebrow">DEPENDENCIES</p>
+                {% if package.dependencies.is_empty() %}
+                <p class="muted">This package has no dependencies.</p>
+                {% else %}
+                <ul class="dependency-list">
+                    {% for dependency in package.dependencies %}
+                    <li>
+                        <span>{{ dependency.0 }}</span>
+                        <code>{{ dependency.1 }}</code>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </section>
+        </div>
+{% include "footer.html" %}
