@@ -9,7 +9,7 @@ It is a work in progress and is not yet complete.
 ## Features (Also kind of Roadmap)
 
 - [ ] Package Manager
-  - [ ] Init command
+  - [x] Init command
   - [ ] Install command
   - [ ] Update command
   - [ ] Add command
